@@ -1,5 +1,5 @@
 import { it, describe, expect } from 'vitest';
-import { axios2Curl } from '.';
+import { DISABLE_HEADER, axios2Curl } from '.';
 import MockAdapter from 'axios-mock-adapter';
 import axios, { type AxiosInstance } from 'axios';
 
@@ -74,5 +74,23 @@ describe('Functions', () => {
     });
 
     await api.get('http://localhost:3000/todos');
+  });
+
+  it('should call axios without curl', async () => {
+    const api = axios;
+
+    const mockApi = new MockAdapter(api);
+
+    mockApi.onAny().reply(200);
+
+    axios2Curl(api, (message) => {
+      expect(message.startsWith('curl')).toBe(true);
+    });
+
+    await api.get('http://localhost:3000/todos', {
+      headers: {
+        [DISABLE_HEADER]: 'true'
+      }
+    });
   });
 });
