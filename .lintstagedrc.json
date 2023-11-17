@@ -1,0 +1,7 @@
+{
+  "{src}/**/*.{ts}": [
+    "eslint --fix",
+    "vitest run --passWithNoTests",
+    "git add ."
+  ]
+}
