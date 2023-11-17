@@ -1,5 +1,5 @@
 import { it, describe, expect } from 'vitest';
-import { axios2Curl } from './functions';
+import { axios2Curl } from '.';
 import MockAdapter from 'axios-mock-adapter';
 import axios, { type AxiosInstance } from 'axios';
 

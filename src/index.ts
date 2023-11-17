@@ -1,36 +1,77 @@
-import axios from 'axios';
-import { axios2Curl } from './functions';
+import { type InternalAxiosRequestConfig, type AxiosInstance } from 'axios';
 
-const api = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com'
-});
+type Logger = (message: string) => void;
 
-axios2Curl(api, (message) => {
-  console.log(message);
-});
+export function axios2Curl(instance: AxiosInstance, logger: Logger): void {
+  instance.interceptors.request.use((config) => {
+    logger(getCommand(config));
 
-async function bootstrap(): Promise<void> {
-  const { data } = await api.post(
-    '/posts',
-    {
-      userId: 1,
-      id: 1,
-      title:
-        'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-      body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
-      user: {
-        name: 'ok'
-      }
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
-    }
-  );
-
-  console.log(data);
+    return config;
+  });
 }
 
-void bootstrap();
+function getCommand(config: InternalAxiosRequestConfig): string {
+  let message = `curl ${getMethod(config)} ${getUrl(config)}`;
+
+  message += `${getHeaders(config)} ${getBody(config)} ${getParams(config)}`;
+
+  message = message.replace(/\s+/g, ' ');
+
+  return message;
+}
+
+function getUrl(config: InternalAxiosRequestConfig): string {
+  const url = new URL(
+    config.baseURL != null ? `${config.baseURL}${config.url}` : `${config.url}`
+  );
+
+  url.search = '';
+
+  return `"${url.toString()}"`;
+}
+
+function getMethod(config: InternalAxiosRequestConfig): string {
+  return `-X ${config.method?.toUpperCase()}`;
+}
+
+function getParams(config: InternalAxiosRequestConfig): string {
+  let paramsString = '';
+
+  const url = new URL(`${config.baseURL}${config.url}`);
+
+  const params: Record<string, string> = {
+    ...config.params,
+    ...Object.fromEntries(url.searchParams)
+  };
+
+  Object.entries(params).forEach(([key, value]) => {
+    paramsString += ` -d ${key}=${value} `;
+  });
+
+  return paramsString;
+}
+
+function getBody(config: InternalAxiosRequestConfig): string {
+  let body = '';
+
+  if (config.data != null) {
+    body = ` -d '${JSON.stringify(config.data)}' `;
+  }
+
+  return body;
+}
+
+function getHeaders(config: InternalAxiosRequestConfig): string {
+  let headers = '';
+
+  if (config.headers != null) {
+    console.log(config.headers);
+    Object.entries(config.headers).forEach(([key, value]) => {
+      if (value != null) {
+        headers += ` -H "${key}: ${value}" `;
+      }
+    });
+  }
+
+  return headers;
+}
