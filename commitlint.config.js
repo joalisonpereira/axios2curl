@@ -1,10 +1,10 @@
-const config = require("@commitlint/config-conventional");
+import config from '@commitlint/config-conventional';
 
-module.exports = {
-  extends: ["@commitlint/config-conventional"],
+export default {
+  extends: ['@commitlint/config-conventional'],
   rules: {
     ...config.rules,
-    "type-enum": [2, "always", [...config.rules["type-enum"][2], "wip"]],
+    'type-enum': [2, 'always', [...config.rules['type-enum'][2], 'wip']]
   },
   prompt: {
     ...config.prompt,
@@ -15,12 +15,12 @@ module.exports = {
         enum: {
           ...config.prompt.questions.type.enum,
           wip: {
-            description: "Working in progress",
-            title: "Wip",
-            emoji: "🚧",
-          },
-        },
-      },
-    },
-  },
+            description: 'Working in progress',
+            title: 'Wip',
+            emoji: '🚧'
+          }
+        }
+      }
+    }
+  }
 };
