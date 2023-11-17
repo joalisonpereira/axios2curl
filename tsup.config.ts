@@ -4,7 +4,7 @@ export default defineConfig({
   entry: ['src', '!src/**/*.spec.*', '!src/tests/**'],
   splitting: false,
   sourcemap: false,
-  clean: false,
+  clean: true,
   dts: true,
   format: 'esm'
 });
