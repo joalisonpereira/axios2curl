@@ -73,8 +73,6 @@ describe('Functions', () => {
       expect(message.startsWith('curl')).toBe(true);
     });
 
-    asd();
-
     await api.get('http://localhost:3000/todos');
   });
 });

@@ -34,6 +34,8 @@ function getMethod(config: InternalAxiosRequestConfig): string {
   return `-X ${config.method?.toUpperCase()}`;
 }
 
+addSerializer();
+
 function getParams(config: InternalAxiosRequestConfig): string {
   let paramsString = '';
 
