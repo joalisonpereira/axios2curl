@@ -65,7 +65,6 @@ function getHeaders(config: InternalAxiosRequestConfig): string {
   let headers = '';
 
   if (config.headers != null) {
-    console.log(config.headers);
     Object.entries(config.headers).forEach(([key, value]) => {
       if (value != null) {
         headers += ` -H "${key}: ${value}" `;

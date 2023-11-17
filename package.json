@@ -1,6 +1,6 @@
 {
   "name": "axios2curl",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An axios plugin that translates requests into cURL commands",
   "scripts": {
     "dev": "tsx watch src",
@@ -56,6 +56,5 @@
     "tsx": "^4.1.3",
     "typescript": "^5.2.2",
     "vitest": "^0.34.6"
-  },
-  "type": "module"
+  }
 }
