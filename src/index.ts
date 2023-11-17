@@ -2,14 +2,14 @@ import { type InternalAxiosRequestConfig, type AxiosInstance } from 'axios';
 
 type Logger = (message: string) => void;
 
-export const DISABLE_HEADER = `___DISABLE_CURL___`;
+export const DISABLE_CURL = `___DISABLE_CURL___`;
 
 export function axios2Curl(instance: AxiosInstance, logger: Logger): void {
   instance.interceptors.request.use((config) => {
-    if (config.headers.get(DISABLE_HEADER) !== 'true') {
+    if (config.headers.get(DISABLE_CURL) !== 'true') {
       logger(getCommand(config));
 
-      config.headers.delete(DISABLE_HEADER);
+      config.headers.delete(DISABLE_CURL);
     }
 
     return config;

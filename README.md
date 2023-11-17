@@ -28,14 +28,14 @@ axios2Curl(api, (curl) => console.info(curl));
 By default, all requests will be logged. However, you can disable this behavior on a per-request basis by setting the header `___DISABLE_CURL___` to true. Rest assured, we will remove this header before your request is processed.
 
 ```javascript
-import { axios2Curl, DISABLE_HEADER } from 'axios2curl';
+import { axios2Curl, DISABLE_CURL } from 'axios2curl';
 import axios from 'axios';
 
 axios
   .get(
     'http://localhost:3000',
      headers: {
-      [DISABLE_HEADER]: 'true'
+      [DISABLE_CURL]: 'true'
     }
 )
   .then(() => {

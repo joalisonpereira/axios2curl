@@ -1,5 +1,5 @@
 import { it, describe, expect } from 'vitest';
-import { DISABLE_HEADER, axios2Curl } from '.';
+import { DISABLE_CURL, axios2Curl } from '.';
 import MockAdapter from 'axios-mock-adapter';
 import axios, { type AxiosInstance } from 'axios';
 
@@ -89,7 +89,7 @@ describe('Functions', () => {
 
     await api.get('http://localhost:3000/todos', {
       headers: {
-        [DISABLE_HEADER]: 'true'
+        [DISABLE_CURL]: 'true'
       }
     });
   });
