@@ -9,7 +9,8 @@
     "test:coverage": "vitest run --coverage && jest-coverage-badges -o --output './docs'",
     "lint": "npx eslint src --fix",
     "check-types": "tsc --noemit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "npm run build"
   },
   "author": {
     "name": "joalisonpereira",
