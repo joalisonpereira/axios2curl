@@ -8,6 +8,8 @@ export function axios2Curl(instance: AxiosInstance, logger: Logger): void {
   instance.interceptors.request.use((config) => {
     if (config.headers.get(DISABLE_HEADER) !== 'true') {
       logger(getCommand(config));
+
+      config.headers.delete(DISABLE_HEADER);
     }
 
     return config;
