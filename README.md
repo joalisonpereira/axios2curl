@@ -20,7 +20,7 @@ const api = axios.create({
   baseURL: 'http://localhost:3000'
 });
 
-axios2Curl(api, (message) => console.info(message));
+axios2Curl(api, (curl) => console.info(curl));
 ```
 
 ## Disable the logger
@@ -31,9 +31,9 @@ By default, all requests will be logged. However, you can disable this behavior 
 import { axios2Curl, DISABLE_HEADER } from 'axios2curl';
 import axios from 'axios';
 
-api
+axios
   .get(
-    '/todos',
+    'http://localhost:3000',
      headers: {
       [DISABLE_HEADER]: 'true'
     }
