@@ -21,6 +21,12 @@ const api = axios.create({ baseURL: 'http://localhost:3000' });
 axios2Curl(api, (curl) => console.info(curl));
 ```
 
+#### Log
+
+```shell
+curl -X GET "http://localhost:3000/" -H "Accept: application/json, text/plain, */*"
+```
+
 ## Disable the logger
 
 By default, all requests will be logged. However, you can disable this behavior on a per-request basis by setting the header `___DISABLE_CURL___` to true. Rest assured, we will remove this header before your request is processed.
