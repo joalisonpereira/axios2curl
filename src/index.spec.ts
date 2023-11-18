@@ -23,12 +23,12 @@ describe('Functions', () => {
   it('should call api with get method', async () => {
     const api = createApi();
 
-    axios2Curl(api, (message) => {
-      expect(message.startsWith('curl')).toBe(true);
+    axios2Curl(api, (curl) => {
+      expect(curl.startsWith('curl')).toBe(true);
 
-      expect(message.includes('-d order=name')).toBe(true);
+      expect(curl.includes('-d order=name')).toBe(true);
 
-      expect(message.includes('-d limit=1')).toBe(true);
+      expect(curl.includes('-d limit=1')).toBe(true);
     });
 
     await api.get('/todos?order=name', {
@@ -41,8 +41,8 @@ describe('Functions', () => {
   it('should call api with empty params', async () => {
     const api = createApi();
 
-    axios2Curl(api, (message) => {
-      expect(message).includes(`curl -X GET "${api.defaults.baseURL}/todos"`);
+    axios2Curl(api, (curl) => {
+      expect(curl).includes(`curl -X GET "${api.defaults.baseURL}/todos"`);
     });
 
     await api.get('/todos');
@@ -53,10 +53,10 @@ describe('Functions', () => {
 
     const todo = { title: 'Task', active: true };
 
-    axios2Curl(api, (message) => {
-      expect(message.startsWith('curl')).toBe(true);
+    axios2Curl(api, (curl) => {
+      expect(curl.startsWith('curl')).toBe(true);
 
-      expect(message.includes(JSON.stringify(todo))).toBe(true);
+      expect(curl.includes(JSON.stringify(todo))).toBe(true);
     });
 
     await api.post('/todos', todo);
@@ -69,8 +69,8 @@ describe('Functions', () => {
 
     mockApi.onAny().reply(200);
 
-    axios2Curl(api, (message) => {
-      expect(message.startsWith('curl')).toBe(true);
+    axios2Curl(api, (curl) => {
+      expect(curl.startsWith('curl')).toBe(true);
     });
 
     await api.get('http://localhost:3000/todos');
@@ -83,8 +83,8 @@ describe('Functions', () => {
 
     mockApi.onAny().reply(200);
 
-    axios2Curl(api, (message) => {
-      expect(message.startsWith('curl')).toBe(true);
+    axios2Curl(api, (curl) => {
+      expect(curl.startsWith('curl')).toBe(true);
     });
 
     await api.get('http://localhost:3000/todos', {

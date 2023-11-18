@@ -1,6 +1,6 @@
 import { type InternalAxiosRequestConfig, type AxiosInstance } from 'axios';
 
-type Logger = (message: string) => void;
+type Logger = (curl: string) => void;
 
 export const DISABLE_CURL = `___DISABLE_CURL___`;
 
