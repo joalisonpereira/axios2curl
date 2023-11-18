@@ -17,13 +17,13 @@ export function axios2Curl(instance: AxiosInstance, logger: Logger): void {
 }
 
 function getCommand(config: InternalAxiosRequestConfig): string {
-  let message = `curl ${getMethod(config)} ${getUrl(config)}`;
+  let curl = `curl ${getMethod(config)} ${getUrl(config)}`;
 
-  message += `${getHeaders(config)} ${getBody(config)} ${getParams(config)}`;
+  curl += `${getHeaders(config)} ${getBody(config)} ${getParams(config)}`;
 
-  message = message.replace(/\s+/g, ' ');
+  curl = curl.replace(/\s+/g, ' ');
 
-  return message;
+  return curl;
 }
 
 function getUrl(config: InternalAxiosRequestConfig): string {
