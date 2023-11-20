@@ -51,7 +51,7 @@ function getParams(config: InternalAxiosRequestConfig): string {
   };
 
   Object.entries(params).forEach(([key, value]) => {
-    paramsString += ` -d ${key}=${value} `;
+    paramsString += ` -d "${key}=${value}" `;
   });
 
   return paramsString;
