@@ -24,11 +24,13 @@ describe('Functions', () => {
     const api = createApi();
 
     axios2Curl(api, (curl) => {
+      console.log(curl);
+
       expect(curl.startsWith('curl')).toBe(true);
 
-      expect(curl.includes('-d "order=name"')).toBe(true);
+      expect(curl.includes('order=name')).toBe(true);
 
-      expect(curl.includes('-d "limit=1"')).toBe(true);
+      expect(curl.includes('limit=1')).toBe(true);
     });
 
     await api.get('/todos?order=name', {

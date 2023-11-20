@@ -19,7 +19,7 @@ export function axios2Curl(instance: AxiosInstance, logger: Logger): void {
 function getCommand(config: InternalAxiosRequestConfig): string {
   let curl = `curl ${getMethod(config)} ${getUrl(config)}`;
 
-  curl += `${getHeaders(config)} ${getBody(config)} ${getParams(config)}`;
+  curl += `${getHeaders(config)} ${getBody(config)}`;
 
   curl = curl.replace(/\s+/g, ' ');
 
@@ -31,30 +31,22 @@ function getUrl(config: InternalAxiosRequestConfig): string {
     config.baseURL != null ? `${config.baseURL}${config.url}` : `${config.url}`
   );
 
+  const params: Record<string, string> = {
+    ...config.params,
+    ...Object.fromEntries(url.searchParams)
+  };
+
   url.search = '';
+
+  Object.entries(params).forEach(([key, value]) => {
+    url.searchParams.set(key, value);
+  });
 
   return `"${url.toString()}"`;
 }
 
 function getMethod(config: InternalAxiosRequestConfig): string {
   return `-X ${config.method?.toUpperCase()}`;
-}
-
-function getParams(config: InternalAxiosRequestConfig): string {
-  let paramsString = '';
-
-  const url = new URL(`${config.baseURL}${config.url}`);
-
-  const params: Record<string, string> = {
-    ...config.params,
-    ...Object.fromEntries(url.searchParams)
-  };
-
-  Object.entries(params).forEach(([key, value]) => {
-    paramsString += ` -d "${key}=${value}" `;
-  });
-
-  return paramsString;
 }
 
 function getBody(config: InternalAxiosRequestConfig): string {
